@@ -1,8 +1,7 @@
-<%-- 
-    Document   : salvar_produtos
-    Created on : 11 de abr de 2024, 10:59:11
-    Author     : CT Desenvolvimento
---%>
+<!--Fazendo a importação das bibliotecas para fazer a conexão com o banco de dados-->
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.*"%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,6 +11,46 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <%
+            
+            int codigo;
+            String nome;
+            String marca;
+            double preco;
+            
+            codigo = Integer.parseInt(request.getParameter("codigo"));
+            nome = request.getParameter("nome");
+            marca = request.getParameter("marca");
+            preco = Double.parseDouble(request.getParameter("preco"));
+            
+            //Fazendo a conexão com o banco de dados
+            
+            try{
+                Connection conecta; //é para gerenciar a conexão com o banco de dados 
+                PreparedStatement st; //  é para executar consultas SQL parametrizadas de forma segura e eficiente. 
+                Class.forName("com.mysql.cj.jdbc.Driver"); //importando o driver de conexão na aplicação
+
+                String url="jdbc:mysql://localhost:3307/bancojsp";
+                String user = "root";
+                String password = "";
+                conecta = DriverManager.getConnection(url, user, password);
+
+                //Insere os dados na tabela produto do banco de dados aberto
+
+                String sql = ("INSERT INTO produto VALUES (?, ?, ?, ?)");
+                st = conecta.prepareStatement(sql);
+                st.setInt(1, codigo);  //indica que será inserido no primeiro campo da tabela
+                st.setString(2, nome);
+                st.setString(3, marca);
+                st.setDouble(4, preco);
+                st.executeUpdate(); //executa o comando INSERT
+                out.print("<p><strong>Produto cadastro com sucesso...</Strong></p>");  
+            
+            }catch (Exception x) {
+                out.print("Mensagem de error " + x.getMessage());
+            }
+            
+            
+        %>
     </body>
 </html>
