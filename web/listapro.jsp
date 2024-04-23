@@ -8,7 +8,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Listagem de produtos</title>
+        <link rel="stylesheet" href="tabela.css"/>
     </head>
     <body>
         <%
@@ -28,7 +29,7 @@
             st = conecao.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             //ResultSet serve para guardar aquilo que é 
-            //Trazido do BDados (só serve para isso)
+            //Trazido do BDados (só serve para isso)    
             
         %>
         
@@ -40,6 +41,9 @@
                 <th>Preço</th>
             </tr>
             
+            <!--O método next() é usado para mover o cursor do ResultSet para a próxima linha dos resultados, se houver uma.
+            Ele retorna true se houver uma próxima linha e move o cursor para essa linha, e retorna false se não houver mais linhas para percorrer.
+            -->
             <%
                 while(rs.next()){
             %>

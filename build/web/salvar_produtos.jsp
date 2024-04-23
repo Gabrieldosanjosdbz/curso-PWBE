@@ -47,9 +47,13 @@
                 out.print("<p><strong>Produto cadastro com sucesso...</Strong></p>");  
             
             }catch (Exception x) {
-                out.print("Mensagem de error " + x.getMessage());
+                String erro = x.getMessage();
+                if (erro.contains("Duplicate entry")) {
+                    out.print("<p style='color: blue;font-size:25px'> Este produto já está cadastrado!</p>");
+                } else {
+                    out.print("<p style='color: red; font-size:25px'> Mensagem de erro: " + erro + "</p>");
+                }
             }
-            
             
         %>
     </body>
