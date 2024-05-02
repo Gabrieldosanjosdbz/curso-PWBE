@@ -55,8 +55,8 @@
                 <td>
                     <%=rs.getString("preco")%>
                 </td>
-                <td>a
-                    <a href="expro.jsp?codigo=<%=rs.getString("codigo")%>">Excluir</a>
+                <td>
+                    <a href="excpro.jsp?codigo=<%=rs.getString("codigo")%>">Excluir</a>
                 </td>
             </tr>
             <%
